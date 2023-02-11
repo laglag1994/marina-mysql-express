@@ -32,6 +32,9 @@ const pool = mysql.createPool({
     return result
  }
 
+
+
+
  export const creatMarina = async (song, lyrics)=>{
     const [result]= await pool.query(`
     INSERT INTO mari (song, lyrics)

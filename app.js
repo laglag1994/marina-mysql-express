@@ -1,7 +1,11 @@
 import express from 'express';
 import {getMarinas, getSingleMarina, getRandomMarina, creatMarina} from './database.js'
 
-const app =express()
+const app =express();
+
+
+app.use(express.json())
+
 
 
 app.get ('/mari', async (req,res)=>{
@@ -11,10 +15,28 @@ app.get ('/mari', async (req,res)=>{
 
 
 app.get('/mari/:id', async(req,res)=>{
-    const id = req.prams.id
-    const marina = await getSingleMarina()
+    const id = req.params.id
+    const marina = await getSingleMarina(id)
     res.send(marina)
 })
+
+app.get ('localhost:8080/mari/random', async (req,res)=>{
+    const random= await getRandomMarina() 
+    res.send(random)
+})
+
+
+
+
+app.post('/mari', async(req,res)=> {
+    const {song, lyrics}=req.body
+    const create =await creatMarina(song, lyrics)
+    res.status(201).send(create)
+})
+
+
+
+
 
 
 app.use((err, req, res, next) => {
