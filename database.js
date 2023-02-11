@@ -8,14 +8,14 @@ const pool = mysql.createPool({
 }).promise();
 
 
- const getMarinas = async()=>{
+ export const getMarinas = async()=>{
     const [result] = await pool.query(`
     SELECT * FROM mari
     `)
     return result
  }
 
- const getSingleMarina = async(id)=>{
+ export const getSingleMarina = async(id)=>{
     const [result] = await pool.query(`
     SELECT * FROM mari 
     WHERE id =?
@@ -23,7 +23,7 @@ const pool = mysql.createPool({
     return result[0]
  }
 
- const getRandomMarina = async ()=>{
+ export const getRandomMarina = async ()=>{
     const [result]= await pool.query(`
     SELECT * FROM mari
     ORDER BY RAND()
@@ -32,7 +32,7 @@ const pool = mysql.createPool({
     return result
  }
 
- const creatMarina = async (song, lyrics)=>{
+ export const creatMarina = async (song, lyrics)=>{
     const [result]= await pool.query(`
     INSERT INTO mari (song, lyrics)
     VALUES(?,?)
