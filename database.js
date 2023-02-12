@@ -1,4 +1,6 @@
 import mysql from 'mysql2';
+import dotenv from "dotenv"
+dotenv.config()
 
 // we move the secret information from the file to .env so that it's not leaked to everyone
 const pool = mysql.createPool({
