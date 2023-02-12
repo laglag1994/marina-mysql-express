@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://lag:rer3rer3@localhost:3306/marina"
+}
+
+model mari {
+  id      Int      @id @default(autoincrement())
+  song    String   @db.VarChar(255)
+  lyrics  String   @db.Text
+  created DateTime @default(now()) @db.Timestamp(0)
+
+
+}
+
+model Album {
+  albumName String 
+  year Int
+  auther mari
+}

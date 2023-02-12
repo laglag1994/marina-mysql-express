@@ -20,7 +20,7 @@ app.get('/mari/:id', async(req,res)=>{
     res.send(marina)
 })
 
-app.get ('localhost:8080/mari/random', async (req,res)=>{
+app.get ('/mari/random', async (req,res)=>{
     const random= await getRandomMarina() 
     res.send(random)
 })
@@ -30,7 +30,7 @@ app.get ('localhost:8080/mari/random', async (req,res)=>{
 
 app.post('/mari', async(req,res)=> {
     const {song, lyrics}=req.body
-    const create =await creatMarina(song, lyrics)
+    const create =await cre(song, lyrics)
     res.status(201).send(create)
 })
 
