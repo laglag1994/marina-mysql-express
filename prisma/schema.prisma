@@ -8,16 +8,18 @@ datasource db {
 }
 
 model mari {
-  id      Int      @id @default(autoincrement())
-  song    String   @db.VarChar(255)
-  lyrics  String   @db.Text
-  created DateTime @default(now()) @db.Timestamp(0)
-
-
+  id          Int      @id @default(autoincrement())
+  song        String   @db.VarChar(255)
+  lyrics      String   @db.Text
+  created     DateTime @default(now()) @db.Timestamp(0)
+  preferences Json
+  Album       Album[]
 }
 
 model Album {
-  albumName String 
-  year Int
-  auther mari
+  id        Int    @id @default(autoincrement())
+  albumName String
+  year      Int
+  auther    mari   @relation(fields: [mariId], references: [id])
+  mariId    Int
 }
