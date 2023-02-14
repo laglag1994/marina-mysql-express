@@ -5,24 +5,38 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("DATABASE_URL")
-
 }
 
-model mari {
+model Song {
   id      Int      @id @default(autoincrement())
   song    String   @db.VarChar(255)
   lyrics  String   @db.Text
   created DateTime @default(now()) @db.Timestamp(0)
-  Album   Album[]  @relation("album")
+  album   Album    @relation(fields: [albumId], references: [id])
+  albumId Int
 }
 
 model Album {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   albumName String
   year      Int
-  mariId    Int
-  auther    mari   @relation("album", fields: [mariId], references: [id])
+  songs     Song[]
+  rates     Rating[]
+}
 
-  @@index([mariId], map: "Album_mariId_fkey")
+model Rating {
+  id      Int   @id @default(autoincrement())
+  rate    Int
+  album   Album @relation(fields: [albumId], references: [id])
+  albumId Int
+  User    User? @relation(fields: [userId], references: [id])
+  userId  Int?
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String
+  password String
+  rates    Rating[]
 }

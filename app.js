@@ -1,5 +1,5 @@
 import express from 'express';
-import {getMarinas, getSingleMarina, getRandomMarina, creatMarina} from './database.js'
+import {getMarinas, getSingleMarina, creatMarina} from './database.js'
 
 const app =express();
 
