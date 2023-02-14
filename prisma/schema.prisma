@@ -4,21 +4,25 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://lag:rer3rer3@localhost:3306/marina"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("DATABASE_URL")
+
 }
 
 model mari {
-  id          Int      @id @default(autoincrement())
-  song        String   @db.VarChar(255) 
-  lyrics      String   @db.Text
-  created     DateTime @default(now()) @db.Timestamp(0)
-  Album       Album[] @relation("album")
+  id      Int      @id @default(autoincrement())
+  song    String   @db.VarChar(255)
+  lyrics  String   @db.Text
+  created DateTime @default(now()) @db.Timestamp(0)
+  Album   Album[]  @relation("album")
 }
 
 model Album {
   id        Int    @id @default(autoincrement())
   albumName String
   year      Int
-  auther    mari   @relation("album",fields: [mariId], references: [id])
   mariId    Int
+  auther    mari   @relation("album", fields: [mariId], references: [id])
+
+  @@index([mariId], map: "Album_mariId_fkey")
 }

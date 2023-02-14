@@ -3,8 +3,14 @@ const prisma = new PrismaClient()
 
 
 async function main() {
-    await prisma.mari.deleteMany
-
+    const newMarina = await prisma.mari.create({
+        data:{
+            song: 'starring role',
+            lyrics:'you hard to hug tough to talk to'
+            
+        }
+    })
+console.log(newMarina)
 }
 
 
